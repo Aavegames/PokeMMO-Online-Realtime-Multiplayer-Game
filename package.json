@@ -4,7 +4,7 @@
   "description": "npm init template for bootstraping an empty Colyseus project",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node server/server.js",
     "dev": "nodemon server.js",
     "build": "cd client/ && npm install && npm run build",
     "loadtest": "colyseus-loadtest loadtest/example.js --room my_room --numClients 2",
