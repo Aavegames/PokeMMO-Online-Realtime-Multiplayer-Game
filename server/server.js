@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const colyseus = require('colyseus');
 const monitor = require("@colyseus/monitor").monitor;
+const path = require('path');
 // const socialRoutes = require("@colyseus/social/express").default;
 
 const PokeWorld = require('./rooms/PokeWorld').PokeWorld;
@@ -12,6 +13,8 @@ const app = express()
 
 app.use(cors());
 app.use(express.json());
+
+app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
 const server = http.createServer(app);
 const gameServer = new colyseus.Server({
@@ -37,6 +40,10 @@ gameServer.define("poke_world", PokeWorld)
 
 // register colyseus monitor AFTER registering your room handlers
 app.use("/colyseus", monitor(gameServer));
+
+app.get('/*', async (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+})
 
 gameServer.listen(port);
 console.log(`Listening on ws://localhost:${port}`)
