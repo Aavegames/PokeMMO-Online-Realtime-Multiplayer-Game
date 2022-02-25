@@ -8,7 +8,7 @@ let onlinePlayers = [];
 /*================================================
 | Colyseus connection with server
 */
-var client = new Colyseus.Client('ws://localhost:3000');
+var client = new Colyseus.Client('ws://gotchi-moon.herokuapp.com/');
 let room = client.joinOrCreate("poke_world").then(room => {
     console.log(room.sessionId, "joined", room.name);
     return room
